@@ -39,6 +39,7 @@ public class ValidParentheses {
         System.out.println(isValid(")[]{}"));//false
         System.out.println(isValid("()]{}"));//false
         System.out.println(isValid("()[][{}"));//false
+        System.out.println(isValid("(("));//false
     }
     public static boolean isValid(String s) {
         if (s.length() % 2 != 0) {
