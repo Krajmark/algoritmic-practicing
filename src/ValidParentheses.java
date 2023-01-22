@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /*Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
@@ -29,31 +31,58 @@ Constraints:
 s consists of parentheses only '()[]{}'.*/
 public class ValidParentheses {
     public static void main(String[] args) {
+        System.out.println("Trues:");//false
         System.out.println(isValid("()"));//true
         System.out.println(isValid("()[]{}"));//true
-        System.out.println(isValid("(]"));//false
         System.out.println(isValid("{()}"));//true
+        System.out.println("Falses:");
+        System.out.println(isValid("(]"));//false
+        System.out.println(isValid(")[]{}"));//false
+        System.out.println(isValid("()]{}"));//false
+        System.out.println(isValid("()[][{}"));//false
     }
     public static boolean isValid(String s) {
         if (s.length() % 2 != 0) {
             return false;
         }
         String[] strings = s.split("");
-        for (int i = 0; i + 1 < strings.length; i++) {
-            if ((Objects.equals(strings[i], "(")) && (Objects.equals(strings[i + 1], ")"))) {
-                i++;
+        List<String> activeParentheses = new ArrayList<>();
+        for (String current : strings) {
+            if (current.equals("(")) {
+                activeParentheses.add(current);
                 continue;
             }
-            if ((Objects.equals(strings[i], "[")) && (Objects.equals(strings[i + 1], "]"))) {
-                i++;
+            if (current.equals("[")) {
+                activeParentheses.add(current);
                 continue;
             }
-            if ((Objects.equals(strings[i], "{")) && (Objects.equals(strings[i + 1], "}"))) {
-                i++;
+            if (current.equals("{")) {
+                activeParentheses.add(current);
                 continue;
+            }
+            if (activeParentheses.isEmpty()) {
+                return false;
+            }
+            if (current.equals(")")) {
+                if(activeParentheses.get(activeParentheses.size() - 1).equals("(")) {
+                    activeParentheses.remove(activeParentheses.size() - 1);
+                    continue;
+                }
+            }
+            if (current.equals("]")) {
+                if(activeParentheses.get(activeParentheses.size() - 1).equals("[")) {
+                    activeParentheses.remove(activeParentheses.size() - 1);
+                    continue;
+                }
+            }
+            if (current.equals("}")) {
+                if(activeParentheses.get(activeParentheses.size() - 1).equals("{")) {
+                    activeParentheses.remove(activeParentheses.size() - 1);
+                    continue;
+                }
             }
             return false;
         }
-        return true;
+        return activeParentheses.isEmpty();
     }
 }
