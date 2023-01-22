@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /*Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 
