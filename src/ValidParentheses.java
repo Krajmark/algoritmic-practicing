@@ -1,4 +1,5 @@
 import java.util.Objects;
+import java.util.Stack;
 
 /*Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 
@@ -35,25 +36,45 @@ public class ValidParentheses {
         System.out.println(isValid("{()}"));//true
     }
     public static boolean isValid(String s) {
-        if (s.length() % 2 != 0) {
-            return false;
+        // Create a new stack to store the characters.
+        Stack<Character> stack = new Stack<>();
+
+
+        // convert string into char array and access the characters using for each loop.
+        for(char ch: s.toCharArray())
+        {
+            // check ch
+            switch (ch) {
+                // open bracket then push it in stack.
+                // close bracket then pop the item and compare.
+                case '(', '{', '[' -> stack.push(ch);
+                case ')' -> {
+                    if (stack.isEmpty() || stack.pop() != '(')
+
+                    // if the stack is empty then it means string have no open bracket.
+                    // hence it is invalid.
+                    {
+                        return false;
+                    }
+                }
+                case '}' -> {
+                    if (stack.isEmpty() || stack.pop() != '{') {
+                        return false;
+                    }
+                }
+                case ']' -> {
+                    if (stack.isEmpty() || stack.pop() != '[') {
+                        return false;
+                    }
+                }
+            }
         }
-        String[] strings = s.split("");
-        for (int i = 0; i + 1 < strings.length; i++) {
-            if ((Objects.equals(strings[i], "(")) && (Objects.equals(strings[i + 1], ")"))) {
-                i++;
-                continue;
-            }
-            if ((Objects.equals(strings[i], "[")) && (Objects.equals(strings[i + 1], "]"))) {
-                i++;
-                continue;
-            }
-            if ((Objects.equals(strings[i], "{")) && (Objects.equals(strings[i + 1], "}"))) {
-                i++;
-                continue;
-            }
-            return false;
-        }
-        return true;
+
+
+        // After the loop we have to check one more condition.
+        // return true only if the stack is empty.
+        // if stack is not empty that means we have unused brackets.
+
+        return stack.isEmpty();
     }
 }
