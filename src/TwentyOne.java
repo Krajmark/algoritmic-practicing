@@ -12,11 +12,8 @@ public class TwentyOne {
         String[] words = input.split(" ");
         StringBuilder sb = new StringBuilder();
         for (String word : words) {
-            String[] letters = word.split("");
             StringBuilder wordBuilder = new StringBuilder();
-            for (int i = word.length() - 1; i >= 0; i--) {
-                wordBuilder.append(letters[i]);
-            }
+            wordBuilder.append(word).reverse();
             sb.append(wordBuilder).append(" ");
         }
         return sb.toString();
