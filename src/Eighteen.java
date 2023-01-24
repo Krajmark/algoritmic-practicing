@@ -13,7 +13,7 @@ foo9 -> foo10
 foo099 -> foo100
 Attention: If the number has leading zeros the amount of digits should be considered
 * */
-public class Main {
+public class Eighteen {
     public static void main(String[] args) {
         System.out.println(numberify("foo"));
         System.out.println(numberify("foobar23"));
@@ -23,32 +23,27 @@ public class Main {
     }
 
     private static String numberify(String input) {
-        String[] letters = input.split("");
-        List<Integer> digits = new ArrayList<>();
-        for (int i = 0; i < letters.length; i++) {
-            Integer digit = null;
+        String[] inputLetters = input.split("");
+        StringBuilder stringBuilderForNumbers = new StringBuilder();
+        StringBuilder stringBuilderForLetters = new StringBuilder();
+        boolean numberSwitch = false;
+        for (int i = 0; i < input.length(); i++) {
             try {
-                 digit = Integer.parseInt(letters[i]);
+                if (inputLetters[i].matches("[1-9]")) {
+                    numberSwitch = true;
+                }
+                if (numberSwitch) {
+                    stringBuilderForNumbers.append(Integer.parseInt(inputLetters[i]));
+                    continue;
+                }
+                stringBuilderForLetters.append(inputLetters[i]);
             } catch (NumberFormatException e) {
-                continue;
+                stringBuilderForLetters.append(inputLetters[i]);
             }
-            digits.add(digit);
         }
-        String output = input.substring(0, input.length() - digits.size());
-        StringBuilder sb = new StringBuilder();
-        for (Integer digit : digits) {
-            sb.append(digit);
+        if (stringBuilderForNumbers.isEmpty()) {
+            return stringBuilderForLetters.append(1).toString();
         }
-        if (digits.isEmpty()) {
-            return output + 1;
-        }
-        Integer number = null;
-        try {
-            number = Integer.parseInt(sb.toString());
-        } catch (NumberFormatException e) {
-        }
-        number++;
-        output += number;
-        return output;
+        return stringBuilderForLetters.append(Integer.parseInt(stringBuilderForNumbers.toString()) + 1).toString();
     }
 }
