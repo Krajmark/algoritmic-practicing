@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
 * Your job is to write a function which increments a string, to create a new string.
@@ -23,27 +23,19 @@ public class Eighteen {
     }
 
     private static String numberify(String input) {
-        String[] inputLetters = input.split("");
-        StringBuilder stringBuilderForNumbers = new StringBuilder();
-        StringBuilder stringBuilderForLetters = new StringBuilder();
-        boolean numberSwitch = false;
-        for (int i = 0; i < input.length(); i++) {
+        String pattern = "([a-z]*)([0-9]*)";
+        Pattern regexp = Pattern.compile(pattern);
+        Matcher matcher = regexp.matcher(input);
+        if (matcher.find()) {
+            String newNumberAsString = null;
             try {
-                if (inputLetters[i].matches("[1-9]")) {
-                    numberSwitch = true;
-                }
-                if (numberSwitch) {
-                    stringBuilderForNumbers.append(Integer.parseInt(inputLetters[i]));
-                    continue;
-                }
-                stringBuilderForLetters.append(inputLetters[i]);
-            } catch (NumberFormatException e) {
-                stringBuilderForLetters.append(inputLetters[i]);
+                int number = Integer.parseInt(matcher.group(2)) + 1;
+                newNumberAsString = "0".repeat(matcher.group(2).length() - String.valueOf(number).length()) + number;
+            } catch (Exception e) {
+                newNumberAsString = "1";
             }
+            return matcher.group(1) + newNumberAsString;
         }
-        if (stringBuilderForNumbers.isEmpty()) {
-            return stringBuilderForLetters.append(1).toString();
-        }
-        return stringBuilderForLetters.append(Integer.parseInt(stringBuilderForNumbers.toString()) + 1).toString();
+        return "NO MATCH";
     }
 }
