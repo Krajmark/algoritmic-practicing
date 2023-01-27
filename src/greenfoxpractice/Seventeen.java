@@ -64,6 +64,7 @@ public class Seventeen {
                         customersInTills.remove(customer.getKey());
                         customersInTills.add("customer".concat(String.valueOf(nextCustomer)));
                         nextCustomer++;
+                        //Time is not added when after the till change the new element is called...
                     }
                 }
             }
