@@ -36,11 +36,12 @@ public class BlockLetterPrinter {
 
     public static void main(String[] args) {
         System.out.println(blockPrint("ASD"));
-        System.out.println(blockPrint("Hello Word!"));
+        System.out.println(blockPrint("Hello World!"));
         System.out.println(blockPrint("Hi! My name is Mark!"));
     }
 
     public static String blockPrint(String string) {
+        if (string.isBlank()) return "";
         String[] letters = string.toLowerCase().split("");
         Map<String, String[]> requiredLetters = new HashMap<>();
         for (String letter : letters) {
@@ -53,13 +54,16 @@ public class BlockLetterPrinter {
         for (int i = 0; i < 7; i++) {
             for (String letter : letters) {
                 if (requiredLetters.get(letter) != null) {
-                    sb.append(requiredLetters.get(letter)[i]);
+                    sb.append(requiredLetters.get(letter)[i]).append(" ");
                 }
-                sb.append(" ");
             }
-            sb.append(System.lineSeparator());
+            if (i < 6) {
+                sb.append("\n");
+            }
         }
-        return sb.toString();
+        String actual00ll = sb.toString().replaceAll(" *\n", "\n");
+        String expected = "H   H EEEEE L     L      OOO        W   W  OOO  RRRR  L     DDDD\nH   H E     L     L     O   O       W   W O   O R   R L     D   D\nH   H E     L     L     O   O       W   W O   O R   R L     D   D\nHHHHH EEEEE L     L     O   O       W W W O   O RRRR  L     D   D\nH   H E     L     L     O   O       W W W O   O R R   L     D   D\nH   H E     L     L     O   O       W W W O   O R  R  L     D   D\nH   H EEEEE LLLLL LLLLL  OOO         W W   OOO  R   R LLLLL DDDD";
+        return actual00ll;
     }
 
     private static String[] dictionarySelect(String letter) {
