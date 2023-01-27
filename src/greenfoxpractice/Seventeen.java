@@ -40,37 +40,32 @@ public class Seventeen {
         System.out.println("Correct: 12");
         System.out.println(queueTime(new int[]{10, 2, 3, 3}, 2));
         System.out.println("Correct: 10");
-        System.out.println(queueTime(new int[]{2, 3, 10}, 1));
+        System.out.println(queueTime(new int[]{2, 3, 10}, 2));
         System.out.println("Correct: 12");
     }
 
     private static int queueTime(int[] queue, int n) {
         int timeElapsed = 0;
-        Map<Integer, Integer> currentCustomers = new HashMap<>();
-        Map<Integer, Integer> personToHourRelation = new HashMap<>();
+        List<String> customersInTills = new ArrayList<>();
+        Map<String, Integer> customersToHoursRequired = new HashMap<>();
         for (int i = 0; i < queue.length; i++) {
-            personToHourRelation.put(i, queue[i]);
+            customersToHoursRequired.put("customer".concat(String.valueOf(i)), queue[i]);
         }
-        int queueCurrent = 0;
-        for (int i = queueCurrent; i < n; i++) {
-            currentCustomers.put(i, i);
-            queueCurrent = i + 1;
+        int nextCustomer;
+        for (nextCustomer = 0; nextCustomer < n; nextCustomer++) {
+            customersInTills.add("customer".concat(String.valueOf(nextCustomer)));
         }
-        boolean switc = true;
-        while (switc) {
-            for (Map.Entry<Integer, Integer> person : personToHourRelation.entrySet()) {
-                if (currentCustomers.containsKey(person.getKey())) {
-                    personToHourRelation.put(person.getKey(), person.getValue() - 1);
-                }
-                if (person.getValue() == 0) {
-                    currentCustomers.remove(person.getKey());
-                    currentCustomers.add(queueCurrent);
-                    queueCurrent++;
-                }
-            }
+        while (customersToHoursRequired.entrySet().stream().anyMatch(e -> e.getValue() != 0)) {
             timeElapsed++;
-            if (personToHourRelation.entrySet().stream().allMatch(i ->i.getValue() == 0)) {
-                switc = false;
+            for (Map.Entry<String, Integer> customer : customersToHoursRequired.entrySet()) {
+                if (customersInTills.contains(customer.getKey())) {
+                    customersToHoursRequired.put(customer.getKey(), customer.getValue() - 1);
+                    if (customersToHoursRequired.get(customer.getKey()) == 0) {
+                        customersInTills.remove(customer.getKey());
+                        customersInTills.add("customer".concat(String.valueOf(nextCustomer)));
+                        nextCustomer++;
+                    }
+                }
             }
         }
         return timeElapsed;
