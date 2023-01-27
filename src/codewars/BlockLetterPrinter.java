@@ -34,7 +34,206 @@ A   A BBBB   CCC  DDDD  EEEEE F      GGG  H   H IIIII JJJJ  K   K LLLLL M   M N 
 */
 public class BlockLetterPrinter {
 
+    public static void main(String[] args) {
+        System.out.println(blockPrint("ASD"));
+        System.out.println(blockPrint("Hello Word!"));
+        System.out.println(blockPrint("Hi! My name is Mark!"));
+    }
+
+    public static String blockPrint(String string) {
+        String[] letters = string.toLowerCase().split("");
+        Map<String, String[]> requiredLetters = new HashMap<>();
+        for (String letter : letters) {
+            if (requiredLetters.containsKey(letter)) {
+                continue;
+            }
+            requiredLetters.put(letter, dictionarySelect(letter));
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 7; i++) {
+            for (String letter : letters) {
+                if (requiredLetters.get(letter) != null) {
+                    sb.append(requiredLetters.get(letter)[i]);
+                }
+                sb.append(" ");
+            }
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
+
     private static String[] dictionarySelect(String letter) {
+        if (letter.equals("z")) return new String[]{
+                "ZZZZZ",
+                "    Z",
+                "   Z ",
+                "  Z  ",
+                " Z   ",
+                "Z    ",
+                "ZZZZZ"
+        };
+        if (letter.equals("y")) return new String[]{
+                "Y   Y",
+                "Y   Y",
+                " Y Y ",
+                "  Y  ",
+                "  Y  ",
+                "  Y  ",
+                "  Y  "
+        };
+        if (letter.equals("x")) return new String[]{
+                "X   X",
+                "X   X",
+                " X X ",
+                "  X  ",
+                " X X ",
+                "X   X",
+                "X   X"
+        };
+        if (letter.equals("w")) return new String[]{
+                "W   W",
+                "W   W",
+                "W   W",
+                "W W W",
+                "W W W",
+                "W W W",
+                " W W "
+        };
+        if (letter.equals("v")) return new String[]{
+                "V   V",
+                "V   V",
+                "V   V",
+                "V   V",
+                "V   V",
+                " V V ",
+                "  V  "
+        };
+        if (letter.equals("u")) return new String[]{
+                "U   U",
+                "U   U",
+                "U   U",
+                "U   U",
+                "U   U",
+                "U   U",
+                " UUU "
+        };
+        if (letter.equals("t")) return new String[]{
+                "TTTTT",
+                "  T  ",
+                "  T  ",
+                "  T  ",
+                "  T  ",
+                "  T  ",
+                "  T  "
+        };
+        if (letter.equals("s")) return new String[]{
+                " SSS ",
+                "S   S",
+                "S    ",
+                " SSS ",
+                "    S",
+                "S   S",
+                " SSS "
+        };
+        if (letter.equals("r")) return new String[]{
+                "RRRR ",
+                "R   R",
+                "R   R",
+                "RRRR ",
+                "P R  ",
+                "P  R ",
+                "P   R"
+        };
+        if (letter.equals("q")) return new String[]{
+                " QQQ ",
+                "Q   Q",
+                "Q   Q",
+                "Q   Q",
+                "Q Q Q",
+                "Q  QQ",
+                " QQQQ"
+        };
+        if (letter.equals("p")) return new String[]{
+                "PPPP ",
+                "P   P",
+                "P   P",
+                "PPPP ",
+                "P    ",
+                "P    ",
+                "P    "
+        };
+        if (letter.equals("o")) return new String[]{
+                " OOO ",
+                "O   O",
+                "O   O",
+                "O   O",
+                "O   O",
+                "O   O",
+                " OOO "
+        };
+        if (letter.equals("n")) return new String[]{
+                "N   N",
+                "MM  N",
+                "N   N",
+                "N N N",
+                "N   N",
+                "N  NN",
+                "N   N"
+        };
+        if (letter.equals("m")) return new String[]{
+                "M   M",
+                "MM MM",
+                "M M M",
+                "M   M",
+                "M   M",
+                "M   M",
+                "M   M"
+        };
+        if (letter.equals("l")) return new String[]{
+                "L    ",
+                "L    ",
+                "L    ",
+                "L    ",
+                "L    ",
+                "L    ",
+                "LLLLL"
+        };
+        if (letter.equals("k")) return new String[]{
+                "K   K",
+                "K  K ",
+                "K K  ",
+                "KK   ",
+                "K K  ",
+                "K  K ",
+                "K   K"
+        };
+        if (letter.equals("i")) return new String[]{
+                "IIIII",
+                "  I  ",
+                "  I  ",
+                "  I  ",
+                "  I  ",
+                "  I  ",
+                "IIIII"
+        };
+        if (letter.equals("h")) return new String[]{
+                "H   H",
+                "H   H",
+                "H   H",
+                "HHHHH",
+                "H   H",
+                "H   H",
+                "H   H"
+        };
+        if (letter.equals("g")) return new String[]{
+                " GGG ",
+                "G   G",
+                "G    ",
+                "G GGG",
+                "G   G",
+                "G   G",
+                " GGG "
+        };
         if (letter.equals("f")) return new String[]{
                 "FFFFF",
                 "F    ",
@@ -72,13 +271,13 @@ public class BlockLetterPrinter {
                 " CCC "
         };
         if (letter.equals("b")) return new String[]{
-                "BBB ",
+                "BBBB ",
                 "B   B",
                 "B   B",
-                "BBB ",
+                "BBBB ",
                 "B   B",
                 "B   B",
-                "BBB "
+                "BBBB "
         };
         if (letter.equals("a")) return new String[]{
                 " AAA ",
@@ -87,30 +286,17 @@ public class BlockLetterPrinter {
                 "AAAAA",
                 "A   A",
                 "A   A",
-                "A   A",
+                "A   A"
+        };
+        if (letter.equals(" ")) return new String[]{
+                "     ",
+                "     ",
+                "     ",
+                "     ",
+                "     ",
+                "     ",
+                "     "
         };
         return null;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(blockPrint("ASD"));
-    }
-
-    public static String blockPrint(String string) {
-        String[] letters = string.toLowerCase().split("");
-        Map<String, String[]> requiredLetters = new HashMap<>();
-        for (String letter : letters) {
-            if (requiredLetters.containsKey(letter)) {
-                continue;
-            }
-            requiredLetters.put(letter, dictionarySelect(letter));
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 7; i++) {
-            for (String letter : letters) {
-                sb.append(requiredLetters.get(letter)[i]).append(System.lineSeparator());
-            }
-        }
-        return sb.toString();
     }
 }
