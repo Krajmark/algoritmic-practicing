@@ -46,28 +46,19 @@ public class Seventeen {
 
     private static int queueTime(int[] queue, int n) {
         int timeElapsed = 0;
-        List<String> customersInTills = new ArrayList<>();
-        Map<String, Integer> customersToHoursRequired = new HashMap<>();
-        for (int i = 0; i < queue.length; i++) {
-            customersToHoursRequired.put("customer".concat(String.valueOf(i)), queue[i]);
+        List<Integer> customers = new ArrayList<>();
+        for (Integer customer : queue) {
+            customers.add(customer);
         }
-        int nextCustomer;
-        for (nextCustomer = 0; nextCustomer < n; nextCustomer++) {
-            customersInTills.add("customer".concat(String.valueOf(nextCustomer)));
-        }
-        while (customersToHoursRequired.entrySet().stream().anyMatch(e -> e.getValue() != 0)) {
+        while (!customers.isEmpty()) {
             timeElapsed++;
-            for (Map.Entry<String, Integer> customer : customersToHoursRequired.entrySet()) {
-                if (customersInTills.contains(customer.getKey())) {
-                    customersToHoursRequired.put(customer.getKey(), customer.getValue() - 1);
-                    if (customersToHoursRequired.get(customer.getKey()) == 0) {
-                        customersInTills.remove(customer.getKey());
-                        customersInTills.add("customer".concat(String.valueOf(nextCustomer)));
-                        nextCustomer++;
-                        //Time is not added when after the till change the new element is called...
-                    }
+            for (int i = 0; i < n; i++) {
+                if (customers.size() == i) {
+                    break;
                 }
+                customers.set(i, customers.get(i) - 1);
             }
+            customers.removeIf(customer -> customer == 0);
         }
         return timeElapsed;
     }
