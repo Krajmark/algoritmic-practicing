@@ -37,11 +37,14 @@ public class BlockLetterPrinter {
     public static void main(String[] args) {
         System.out.println(blockPrint("ASD"));
         System.out.println(blockPrint("Hello World!"));
+        System.out.println(blockPrint("ABCDEFGHIJKLM"));
+        System.out.println(blockPrint("NOPQRSTUVWXYZ"));
         System.out.println(blockPrint("Hi! My name is Mark!"));
     }
 
     public static String blockPrint(String string) {
         if (string.isBlank()) return "";
+        string = string.trim();
         String[] letters = string.toLowerCase().split("");
         Map<String, String[]> requiredLetters = new HashMap<>();
         for (String letter : letters) {
@@ -57,13 +60,11 @@ public class BlockLetterPrinter {
                     sb.append(requiredLetters.get(letter)[i]).append(" ");
                 }
             }
-            if (i < 6) {
-                sb.append("\n");
-            }
+            sb.append("\n");
         }
-        String actual00ll = sb.toString().replaceAll(" *\n", "\n");
-        String expected = "H   H EEEEE L     L      OOO        W   W  OOO  RRRR  L     DDDD\nH   H E     L     L     O   O       W   W O   O R   R L     D   D\nH   H E     L     L     O   O       W   W O   O R   R L     D   D\nHHHHH EEEEE L     L     O   O       W W W O   O RRRR  L     D   D\nH   H E     L     L     O   O       W W W O   O R R   L     D   D\nH   H E     L     L     O   O       W W W O   O R  R  L     D   D\nH   H EEEEE LLLLL LLLLL  OOO         W W   OOO  R   R LLLLL DDDD";
-        return actual00ll;
+        String output = sb.toString().replaceAll(" *\n", "\n");
+        output = output.substring(0, output.length() - 1);
+        return output;
     }
 
     private static String[] dictionarySelect(String letter) {
@@ -144,9 +145,9 @@ public class BlockLetterPrinter {
                 "R   R",
                 "R   R",
                 "RRRR ",
-                "P R  ",
-                "P  R ",
-                "P   R"
+                "R R  ",
+                "R  R ",
+                "R   R"
         };
         if (letter.equals("q")) return new String[]{
                 " QQQ ",
@@ -177,7 +178,7 @@ public class BlockLetterPrinter {
         };
         if (letter.equals("n")) return new String[]{
                 "N   N",
-                "MM  N",
+                "NN  N",
                 "N   N",
                 "N N N",
                 "N   N",
@@ -210,6 +211,15 @@ public class BlockLetterPrinter {
                 "K K  ",
                 "K  K ",
                 "K   K"
+        };
+        if (letter.equals("j")) return new String[]{
+                "JJJJJ",
+                "    J",
+                "    J",
+                "    J",
+                "    J",
+                "    J",
+                "JJJJ "
         };
         if (letter.equals("i")) return new String[]{
                 "IIIII",
