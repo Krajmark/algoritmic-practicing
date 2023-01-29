@@ -5,6 +5,7 @@
 *.bak
 *.tmp
 logs
+donotupload
 
 # JetBrains
 cmake-build-*/
