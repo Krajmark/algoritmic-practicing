@@ -42,6 +42,8 @@ public class Seventeen {
         System.out.println("Correct: 10");
         System.out.println(queueTime(new int[]{2, 3, 10}, 2));
         System.out.println("Correct: 12");
+        System.out.println(queueTime(new int[]{2, 3, 3, 10}, 4));
+        System.out.println("Correct: 10");
     }
 
     private static int queueTime(int[] queue, int n) {
