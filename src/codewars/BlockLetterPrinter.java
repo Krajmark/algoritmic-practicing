@@ -4,6 +4,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
+```java
+alpha.put("a", new String[]{" AAA ","A   A","A   A","AAAAA","A   A","A   A","A   A"});
+      alpha.put("b", new String[]{"BBBB ","B   B","B   B","BBBB ","B   B","B   B","BBBB "});
+      alpha.put("c", new String[]{" CCC ","C   C","C    ","C    ","C    ","C   C"," CCC "});
+      alpha.put("d", new String[]{"DDDD ","D   D","D   D","D   D","D   D","D   D","DDDD "});
+      alpha.put("e", new String[]{"EEEEE","E    ","E    ","EEEEE","E    ","E    ","EEEEE"});
+      alpha.put("f", new String[]{"FFFFF","F    ","F    ","FFFFF","F    ","F    ","F    "});
+      alpha.put("g", new String[]{" GGG ","G   G","G    ","G GGG","G   G","G   G"," GGG "});
+      alpha.put("h", new String[]{"H   H","H   H","H   H","HHHHH","H   H","H   H","H   H"});
+      alpha.put("i", new String[]{"IIIII","  I  ","  I  ","  I  ","  I  ","  I  ","IIIII"});
+      alpha.put("j", new String[]{"JJJJJ","    J","    J","    J","    J","    J","JJJJ "});
+      alpha.put("k", new String[]{"K   K","K  K ","K K  ","KK   ","K K  ","K  K ","K   K"});
+      alpha.put("l", new String[]{"L    ","L    ","L    ","L    ","L    ","L    ","LLLLL"});
+      alpha.put("m", new String[]{"M   M","MM MM","M M M","M   M","M   M","M   M","M   M"});
+      alpha.put("n", new String[]{"N   N","NN  N","N   N","N N N","N   N","N  NN","N   N"});
+      alpha.put("o", new String[]{" OOO ","O   O","O   O","O   O","O   O","O   O"," OOO "});
+      alpha.put("p", new String[]{"PPPP ","P   P","P   P","PPPP ","P    ","P    ","P    "});
+      alpha.put("q", new String[]{" QQQ ","Q   Q","Q   Q","Q   Q","Q Q Q","Q  QQ"," QQQQ"});
+      alpha.put("r", new String[]{"RRRR ","R   R","R   R","RRRR ","R R  ","R  R ","R   R"});
+      alpha.put("s", new String[]{" SSS ","S   S","S    "," SSS ","    S","S   S"," SSS "});
+      alpha.put("t", new String[]{"TTTTT","  T  ","  T  ","  T  ","  T  ","  T  ","  T  "});
+      alpha.put("u", new String[]{"U   U","U   U","U   U","U   U","U   U","U   U"," UUU "});
+      alpha.put("v", new String[]{"V   V","V   V","V   V","V   V","V   V"," V V ","  V  "});
+      alpha.put("w", new String[]{"W   W","W   W","W   W","W W W","W W W","W W W"," W W "});
+      alpha.put("x", new String[]{"X   X","X   X"," X X ","  X  "," X X ","X   X","X   X"});
+      alpha.put("y", new String[]{"Y   Y","Y   Y"," Y Y ","  Y  ","  Y  ","  Y  ","  Y  "});
+      alpha.put("z", new String[]{"ZZZZZ","    Z","   Z ","  Z  "," Z   ","Z    ","ZZZZZ"});
+      alpha.put(" ", new String[]{"     ","     ","     ","     ","     ","     ","     "});
+```
 Write a function that accepts a string consisting only of ASCII letters and the whitespace and returns that string in block letters of 5 characters width and 7 characters height, with one space between characters.
 
 The block letters should consist of corresponding capital letters.
@@ -41,23 +70,18 @@ public class BlockLetterPrinter {
         System.out.println(blockPrint("NOPQRSTUVWXYZ"));
         System.out.println(blockPrint("Hi! My name is Mark!"));
     }
+    public static Map<String, String[]> alpha = initializeAlphabet();
 
     public static String blockPrint(String string) {
         if (string.isBlank()) return "";
         string = string.trim();
         String[] letters = string.toLowerCase().split("");
-        Map<String, String[]> requiredLetters = new HashMap<>();
-        for (String letter : letters) {
-            if (requiredLetters.containsKey(letter)) {
-                continue;
-            }
-            requiredLetters.put(letter, dictionarySelect(letter));
-        }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 7; i++) {
             for (String letter : letters) {
-                if (requiredLetters.get(letter) != null) {
-                    sb.append(requiredLetters.get(letter)[i]).append(" ");
+                if (alpha.get(letter) != null) {
+                    sb.append(alpha.get(letter)[i]).append(" ");
                 }
             }
             sb.append("\n");
@@ -67,250 +91,35 @@ public class BlockLetterPrinter {
         return output;
     }
 
-    private static String[] dictionarySelect(String letter) {
-        if (letter.equals("z")) return new String[]{
-                "ZZZZZ",
-                "    Z",
-                "   Z ",
-                "  Z  ",
-                " Z   ",
-                "Z    ",
-                "ZZZZZ"
-        };
-        if (letter.equals("y")) return new String[]{
-                "Y   Y",
-                "Y   Y",
-                " Y Y ",
-                "  Y  ",
-                "  Y  ",
-                "  Y  ",
-                "  Y  "
-        };
-        if (letter.equals("x")) return new String[]{
-                "X   X",
-                "X   X",
-                " X X ",
-                "  X  ",
-                " X X ",
-                "X   X",
-                "X   X"
-        };
-        if (letter.equals("w")) return new String[]{
-                "W   W",
-                "W   W",
-                "W   W",
-                "W W W",
-                "W W W",
-                "W W W",
-                " W W "
-        };
-        if (letter.equals("v")) return new String[]{
-                "V   V",
-                "V   V",
-                "V   V",
-                "V   V",
-                "V   V",
-                " V V ",
-                "  V  "
-        };
-        if (letter.equals("u")) return new String[]{
-                "U   U",
-                "U   U",
-                "U   U",
-                "U   U",
-                "U   U",
-                "U   U",
-                " UUU "
-        };
-        if (letter.equals("t")) return new String[]{
-                "TTTTT",
-                "  T  ",
-                "  T  ",
-                "  T  ",
-                "  T  ",
-                "  T  ",
-                "  T  "
-        };
-        if (letter.equals("s")) return new String[]{
-                " SSS ",
-                "S   S",
-                "S    ",
-                " SSS ",
-                "    S",
-                "S   S",
-                " SSS "
-        };
-        if (letter.equals("r")) return new String[]{
-                "RRRR ",
-                "R   R",
-                "R   R",
-                "RRRR ",
-                "R R  ",
-                "R  R ",
-                "R   R"
-        };
-        if (letter.equals("q")) return new String[]{
-                " QQQ ",
-                "Q   Q",
-                "Q   Q",
-                "Q   Q",
-                "Q Q Q",
-                "Q  QQ",
-                " QQQQ"
-        };
-        if (letter.equals("p")) return new String[]{
-                "PPPP ",
-                "P   P",
-                "P   P",
-                "PPPP ",
-                "P    ",
-                "P    ",
-                "P    "
-        };
-        if (letter.equals("o")) return new String[]{
-                " OOO ",
-                "O   O",
-                "O   O",
-                "O   O",
-                "O   O",
-                "O   O",
-                " OOO "
-        };
-        if (letter.equals("n")) return new String[]{
-                "N   N",
-                "NN  N",
-                "N   N",
-                "N N N",
-                "N   N",
-                "N  NN",
-                "N   N"
-        };
-        if (letter.equals("m")) return new String[]{
-                "M   M",
-                "MM MM",
-                "M M M",
-                "M   M",
-                "M   M",
-                "M   M",
-                "M   M"
-        };
-        if (letter.equals("l")) return new String[]{
-                "L    ",
-                "L    ",
-                "L    ",
-                "L    ",
-                "L    ",
-                "L    ",
-                "LLLLL"
-        };
-        if (letter.equals("k")) return new String[]{
-                "K   K",
-                "K  K ",
-                "K K  ",
-                "KK   ",
-                "K K  ",
-                "K  K ",
-                "K   K"
-        };
-        if (letter.equals("j")) return new String[]{
-                "JJJJJ",
-                "    J",
-                "    J",
-                "    J",
-                "    J",
-                "    J",
-                "JJJJ "
-        };
-        if (letter.equals("i")) return new String[]{
-                "IIIII",
-                "  I  ",
-                "  I  ",
-                "  I  ",
-                "  I  ",
-                "  I  ",
-                "IIIII"
-        };
-        if (letter.equals("h")) return new String[]{
-                "H   H",
-                "H   H",
-                "H   H",
-                "HHHHH",
-                "H   H",
-                "H   H",
-                "H   H"
-        };
-        if (letter.equals("g")) return new String[]{
-                " GGG ",
-                "G   G",
-                "G    ",
-                "G GGG",
-                "G   G",
-                "G   G",
-                " GGG "
-        };
-        if (letter.equals("f")) return new String[]{
-                "FFFFF",
-                "F    ",
-                "F    ",
-                "FFFFF",
-                "F    ",
-                "F    ",
-                "F    "
-        };
-        if (letter.equals("e")) return new String[]{
-                "EEEEE",
-                "E    ",
-                "E    ",
-                "EEEEE",
-                "E    ",
-                "E    ",
-                "EEEEE"
-        };
-        if (letter.equals("d")) return new String[]{
-                "DDDD ",
-                "D   D",
-                "D   D",
-                "D   D",
-                "D   D",
-                "D   D",
-                "DDDD "
-        };
-        if (letter.equals("c")) return new String[]{
-                " CCC ",
-                "C   C",
-                "C    ",
-                "C    ",
-                "C    ",
-                "C   C",
-                " CCC "
-        };
-        if (letter.equals("b")) return new String[]{
-                "BBBB ",
-                "B   B",
-                "B   B",
-                "BBBB ",
-                "B   B",
-                "B   B",
-                "BBBB "
-        };
-        if (letter.equals("a")) return new String[]{
-                " AAA ",
-                "A   A",
-                "A   A",
-                "AAAAA",
-                "A   A",
-                "A   A",
-                "A   A"
-        };
-        if (letter.equals(" ")) return new String[]{
-                "     ",
-                "     ",
-                "     ",
-                "     ",
-                "     ",
-                "     ",
-                "     "
-        };
-        return null;
+    private static Map<String, String[]> initializeAlphabet() {
+        alpha = new HashMap<>();
+        alpha.put("a", new String[]{" AAA ","A   A","A   A","AAAAA","A   A","A   A","A   A"});
+        alpha.put("b", new String[]{"BBBB ","B   B","B   B","BBBB ","B   B","B   B","BBBB "});
+        alpha.put("c", new String[]{" CCC ","C   C","C    ","C    ","C    ","C   C"," CCC "});
+        alpha.put("d", new String[]{"DDDD ","D   D","D   D","D   D","D   D","D   D","DDDD "});
+        alpha.put("e", new String[]{"EEEEE","E    ","E    ","EEEEE","E    ","E    ","EEEEE"});
+        alpha.put("f", new String[]{"FFFFF","F    ","F    ","FFFFF","F    ","F    ","F    "});
+        alpha.put("g", new String[]{" GGG ","G   G","G    ","G GGG","G   G","G   G"," GGG "});
+        alpha.put("h", new String[]{"H   H","H   H","H   H","HHHHH","H   H","H   H","H   H"});
+        alpha.put("i", new String[]{"IIIII","  I  ","  I  ","  I  ","  I  ","  I  ","IIIII"});
+        alpha.put("j", new String[]{"JJJJJ","    J","    J","    J","    J","    J","JJJJ "});
+        alpha.put("k", new String[]{"K   K","K  K ","K K  ","KK   ","K K  ","K  K ","K   K"});
+        alpha.put("l", new String[]{"L    ","L    ","L    ","L    ","L    ","L    ","LLLLL"});
+        alpha.put("m", new String[]{"M   M","MM MM","M M M","M   M","M   M","M   M","M   M"});
+        alpha.put("n", new String[]{"N   N","NN  N","N   N","N N N","N   N","N  NN","N   N"});
+        alpha.put("o", new String[]{" OOO ","O   O","O   O","O   O","O   O","O   O"," OOO "});
+        alpha.put("p", new String[]{"PPPP ","P   P","P   P","PPPP ","P    ","P    ","P    "});
+        alpha.put("q", new String[]{" QQQ ","Q   Q","Q   Q","Q   Q","Q Q Q","Q  QQ"," QQQQ"});
+        alpha.put("r", new String[]{"RRRR ","R   R","R   R","RRRR ","R R  ","R  R ","R   R"});
+        alpha.put("s", new String[]{" SSS ","S   S","S    "," SSS ","    S","S   S"," SSS "});
+        alpha.put("t", new String[]{"TTTTT","  T  ","  T  ","  T  ","  T  ","  T  ","  T  "});
+        alpha.put("u", new String[]{"U   U","U   U","U   U","U   U","U   U","U   U"," UUU "});
+        alpha.put("v", new String[]{"V   V","V   V","V   V","V   V","V   V"," V V ","  V  "});
+        alpha.put("w", new String[]{"W   W","W   W","W   W","W W W","W W W","W W W"," W W "});
+        alpha.put("x", new String[]{"X   X","X   X"," X X ","  X  "," X X ","X   X","X   X"});
+        alpha.put("y", new String[]{"Y   Y","Y   Y"," Y Y ","  Y  ","  Y  ","  Y  ","  Y  "});
+        alpha.put("z", new String[]{"ZZZZZ","    Z","   Z ","  Z  "," Z   ","Z    ","ZZZZZ"});
+        alpha.put(" ", new String[]{"     ","     ","     ","     ","     ","     ","     "});
+        return alpha;
     }
 }
