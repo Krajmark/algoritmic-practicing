@@ -2,8 +2,8 @@ package codewars;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,32 +19,24 @@ pigIt('Hello world !');     // elloHay orldway !*/
         String[] words = str.trim().split(" +");
         StringBuilder sbToOut = new StringBuilder();
         for (String word : words) {
-            char[] letters = word.toCharArray();
-            char first = letters[0];
-            if (Character.isAlphabetic(first)) {
+            Pattern pattern = Pattern.compile("([A-z]+)(\\W*)");
+            Matcher matcher = pattern.matcher(word);
+            if (matcher.find()) {
+                String onlyLetters = matcher.group(1);
+                Character firstLetter = onlyLetters.charAt(0);
                 StringBuilder sb = new StringBuilder();
-                List<Character> nonAlphabeticChars = new ArrayList<>();
-                for (int i = 1; i < letters.length; i++) {
-                    if (!Character.isAlphabetic(letters[i])) {
-                        nonAlphabeticChars.add(letters[i]);
-                        continue;
-                    }
-                    sb.append(letters[i]);
+                for (int i = 1; i < onlyLetters.length(); i++) {
+                    sb.append(onlyLetters.charAt(i));
                 }
-                sb.append(first).append("ay");
-                if (!nonAlphabeticChars.isEmpty()) {
-                    for (Character character : nonAlphabeticChars) {
-                        sb.append(character);
-                    }
-                }
+                sb.append(firstLetter).append("ay").append(matcher.group(2));
                 sbToOut.append(sb).append(" ");
             } else {
-                sbToOut.append(word);
+                sbToOut.append(word).append(" ");
             }
         }
         return sbToOut.deleteCharAt(sbToOut.length() - 1).toString();
     }
-    
+
     @Test
     public void FixedTests() {
         assertEquals("igPay atinlay siay oolcay", pigIt("Pig latin is cool"));
