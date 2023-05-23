@@ -19,7 +19,7 @@ pigIt('Hello world !');     // elloHay orldway !*/
         String[] words = str.trim().split(" +");
         StringBuilder sbToOut = new StringBuilder();
         for (String word : words) {
-            Pattern pattern = Pattern.compile("([A-z]+)(\\W*)");
+            Pattern pattern = Pattern.compile("([A-Za-z]+)(\\W*)");
             Matcher matcher = pattern.matcher(word);
             if (matcher.find()) {
                 String onlyLetters = matcher.group(1);
