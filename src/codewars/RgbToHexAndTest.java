@@ -19,7 +19,39 @@ RgbToHex.rgb(255, 255, 300) // returns FFFFFF
 RgbToHex.rgb(0, 0, 0)       // returns 000000
 RgbToHex.rgb(148, 0, 211)   // returns 9400D3*/
     public static String rgb(int r, int g, int b) {
-        return null;
+        r = correctRgbRanges(r);
+        g = correctRgbRanges(g);
+        b = correctRgbRanges(b);
+        int[] divisionResults = {r / 16, g / 16, b / 16};
+        int[] remainders = {r % 16, g % 16, b % 16};
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < divisionResults.length; i++) {
+            sb.append(switchDecimalToHexValue(divisionResults[i]));
+            sb.append(switchDecimalToHexValue(remainders[i]));
+        }
+        return sb.toString();
+    }
+
+    private static String switchDecimalToHexValue(int decimal) {
+        return switch (decimal) {
+            case 10 -> "A";
+            case 11 -> "B";
+            case 12 -> "C";
+            case 13 -> "D";
+            case 14 -> "E";
+            case 15 -> "F";
+            default -> String.valueOf(decimal);
+        };
+    }
+
+    private static int correctRgbRanges(int value) {
+        if (value < 0) {
+            value = 0;
+        }
+        if (value > 255) {
+            value = 255;
+        }
+        return value;
     }
 
     @Test
