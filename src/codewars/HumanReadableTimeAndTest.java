@@ -14,7 +14,6 @@ SS = seconds, padded to 2 digits, range: 00 - 59
 The maximum time never exceeds 359999 (99:59:59)
 
 You can find some examples in the test fixtures.*/
-
     
     public static String makeReadable(int seconds) {
         StringBuilder sb = new StringBuilder();
