@@ -20,19 +20,18 @@ Empty list is considered to have zero greatest sum. Note that the empty list or 
             return 0;
         }
         int maxSum = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            int temp = 0;
-            for (int j = i; j < arr.length; j++) {
-                if (temp + arr[j] < temp) {
-                    break;
+        for (int subArraySize = 1; subArraySize < arr.length; subArraySize++) {
+            for (int enteringIndex = 0; enteringIndex < arr.length; enteringIndex++) {
+                int temp = 0;
+                for (int i = enteringIndex; i < enteringIndex + subArraySize && i < arr.length; i++) {
+                    temp += arr[i];
                 }
-                temp += arr[j];
-            }
-            if (temp > maxSum) {
-                maxSum = temp;
+                if (temp > maxSum) {
+                    maxSum = temp;
+                }
             }
         }
-        return 4;
+        return Math.max(maxSum, 0);
     }
 
     @Test
