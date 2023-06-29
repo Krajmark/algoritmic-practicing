@@ -23,7 +23,7 @@ Empty list is considered to have zero greatest sum. Note that the empty list or 
         for (int subArraySize = 1; subArraySize < arr.length; subArraySize++) {
             for (int enteringIndex = 0; enteringIndex < arr.length; enteringIndex++) {
                 int temp = 0;
-                for (int i = enteringIndex; i < enteringIndex + subArraySize + 1 && i < arr.length; i++) {
+                for (int i = enteringIndex; i <= enteringIndex + subArraySize && i < arr.length; i++) {
                     temp += arr[i];
                 }
                 if (temp > maxSum) {
